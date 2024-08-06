@@ -1,4 +1,3 @@
-import 'dart:js';
 
 import 'package:database/create.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -38,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white12,
-        title: Text('Task Category',style: TextStyle(
+        title: const Text('Task Category',style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
           color: Colors.white,
@@ -48,31 +47,35 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         height: 500,
         width: 400,
-        color: Colors.orangeAccent,
+        color: Colors.black12,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50, left: 20),
-              child: Text('Create task',
+            const Padding(
+              padding: EdgeInsets.only(top: 50, left: 20, bottom: 20),
+              child: Text('Choose category',
                   style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white54,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
                   )
               ),
             ),
-            SizedBox(
-              height: 50,
-            ),
+           const Divider(
+            height: 1,
+            color: Colors.white54,
+           ),
+           const SizedBox(
+             height: 40,
+           ),
            SizedBox(
              width: 50,
              height: 50,
              child: ElevatedButton(
-               child: Icon(Icons.add),
+               child: const Icon(Icons.add),
                  onPressed: () {
                    Navigator.push(
                        context,
-                     MaterialPageRoute(builder: (context) => CreatePage()),
+                     MaterialPageRoute(builder: (context) => const CreatePage()),
                    );
                  }
              ),
