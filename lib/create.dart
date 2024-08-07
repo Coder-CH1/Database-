@@ -21,6 +21,14 @@ class _CreatePageState extends State<CreatePage> {
               fontSize: 20,
               fontWeight: FontWeight.normal,
               color: Colors.white54,
+            )),
+            SizedBox(
+              height: 15,
+            ),
+            Text('Category name', style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.normal,
+              color: Colors.white54,
             ))
           ],
         ),
