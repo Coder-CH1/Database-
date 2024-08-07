@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Colors.black54,
       body: Container(
-        height: 500,
+        height: 700,
         width: 400,
         color: Colors.black12,
         child: Column(
@@ -65,13 +65,18 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white54,
            ),
            const SizedBox(
-             height: 40,
+             height: 500,
            ),
            SizedBox(
-             width: 50,
+             width: 70,
              height: 50,
              child: ElevatedButton(
-               child: const Icon(Icons.add),
+               child: const Text('Add', style: TextStyle(
+                 fontSize: 12,
+                 fontWeight: FontWeight.w500,
+                 color: Colors.white,
+               ),
+               ),
                  onPressed: () {
                    Navigator.push(
                        context,
