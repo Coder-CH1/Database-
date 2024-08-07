@@ -47,7 +47,9 @@ class _CreatePageState extends State<CreatePage> {
               controller: _titleController,
               maxLength: 20,
               style: TextStyle(
-                  fontSize: 18),
+                  fontSize: 18,
+                  color: Colors.cyanAccent
+              ),
               decoration: InputDecoration(
                 hintText: 'Category name',
                 hintStyle: TextStyle(
@@ -78,7 +80,9 @@ class _CreatePageState extends State<CreatePage> {
               controller: _dateController,
               maxLength: 20,
               style: TextStyle(
-                  fontSize: 18),
+                  fontSize: 18,
+                color: Colors.cyanAccent,
+              ),
               decoration: InputDecoration(
                 hintText: 'Category date',
                 hintStyle: TextStyle(
@@ -102,7 +106,7 @@ class _CreatePageState extends State<CreatePage> {
                 );
                 if (pickedDate != null) {
                   setState(() {
-                    _dateController.text = pickedDate.toString().split('').first;
+                    _dateController.text = dateFormat.format(pickedDate);
                   });
                 }
               },
@@ -149,7 +153,7 @@ class TaskList extends StatelessWidget {
   ),
       body: GridView.count(crossAxisCount: 2,
       children: [
-        TaskBox(title, '${date.year}-${date.month}-${date.day}'),
+        TaskBox(title, date),
       ],
       ),
     );
@@ -158,7 +162,7 @@ class TaskList extends StatelessWidget {
 
 class TaskBox extends StatelessWidget {
   final String title;
-  final String date;
+  final DateTime date;
   const TaskBox(this.title, this.date, {Key? key}) : super(key: key);
 
   @override
@@ -170,7 +174,7 @@ class TaskBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
       ),
       child: Center(
-        child: Text('$title - $date', style: TextStyle(
+        child: Text('$title - ${DateFormat('yyyy-MM-dd').format(date)}', style: TextStyle(
           fontSize: 20,
           color: Colors.white,
         )),
