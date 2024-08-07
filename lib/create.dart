@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 
 class CreatePage extends StatefulWidget {
@@ -13,6 +13,8 @@ class CreatePage extends StatefulWidget {
 class _CreatePageState extends State<CreatePage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final dateFormat = DateFormat('yyyy-MM-dd');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +49,10 @@ class _CreatePageState extends State<CreatePage> {
               style: TextStyle(
                   fontSize: 18),
               decoration: InputDecoration(
-                labelText: 'Category name',
+                hintText: 'Category name',
+                hintStyle: TextStyle(
+                  color: Colors.white60,
+                ),
                 border: OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white30),
@@ -75,7 +80,10 @@ class _CreatePageState extends State<CreatePage> {
               style: TextStyle(
                   fontSize: 18),
               decoration: InputDecoration(
-                labelText: 'Category date',
+                hintText: 'Category date',
+                hintStyle: TextStyle(
+                  color: Colors.white60,
+                ),
                 border: OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white30),
@@ -83,6 +91,20 @@ class _CreatePageState extends State<CreatePage> {
               ),
               onChanged: (value) {
 
+              },
+              readOnly: true,
+              onTap: () async {
+                final DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2025)
+                );
+                if (pickedDate != null) {
+                  setState(() {
+                    _dateController.text = pickedDate.toString().split('').first;
+                  });
+                }
               },
             ),
             ElevatedButton(
@@ -95,12 +117,13 @@ class _CreatePageState extends State<CreatePage> {
                   color: Colors.white54,
                 )),
                 onPressed: () {
+                  final date = dateFormat.parse(_dateController.text);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => TaskList(
                         title: _titleController.text,
-                        date: _dateController.text,
+                        date: date,
                       ),
                     ),
                   );
@@ -115,22 +138,43 @@ class _CreatePageState extends State<CreatePage> {
 
 class TaskList extends StatelessWidget {
   final String title;
-  final String date;
+  final DateTime date;
   const TaskList({Key? key, required this.title, required this.date}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+  appBar: AppBar(
 
+  ),
+      body: GridView.count(crossAxisCount: 2,
+      children: [
+        TaskBox(title, '${date.year}-${date.month}-${date.day}'),
+      ],
+      ),
     );
   }
 }
 
 class TaskBox extends StatelessWidget {
-  const TaskBox({Key? key}) : super(key: key);
+  final String title;
+  final String date;
+  const TaskBox(this.title, this.date, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.brown,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Center(
+        child: Text('$title - $date', style: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+        )),
+      ),
+    );
   }
 }
