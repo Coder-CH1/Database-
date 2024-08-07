@@ -11,6 +11,20 @@ class CreatePage extends StatefulWidget {
 class _CreatePageState extends State<CreatePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 50),
+        child: Column(
+          children: [
+            Text('Create new category', style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.normal,
+              color: Colors.white54,
+            ))
+          ],
+        ),
+      ),
+    );
   }
 }
