@@ -36,11 +36,15 @@ class DatabaseProvider with ChangeNotifier {
   }
 
   Future<Task> updateData(Task task) async {
+    final db = await getDb();
+  await db.update('task', task.toJson(), where: 'id = ?', whereArgs: [(task.id)]);
     return task;
   }
 
   Future<bool> deleteData(int id) async {
-    return true;
+    final db = await getDb();
+final result = await db.delete('task', where: 'id = ?', whereArgs: [id]);
+    return result > 0;
   }
 
 }
