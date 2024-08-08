@@ -6,7 +6,7 @@ Future<Database> createDatabase() async {
     version: 1,
     onCreate: (db, version) {
       db.execute('''
-        CREATE TABLE task (
+        CREATE TABLE IF NOT EXISTS task (
         id INTEGER PRIMARY KEY,
         title TEXT,
         date TEXT

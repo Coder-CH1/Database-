@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
+import 'package:database/database.dart';
 import 'model.dart';
 
 class DatabaseProvider with ChangeNotifier {
@@ -12,13 +13,7 @@ class DatabaseProvider with ChangeNotifier {
   }
 
   Future<Database> initDatabase() async {
-    return await openDatabase(
-      'task.db',
-      version: 1,
-      onCreate: (db, version) {
-
-      },
-    );
+    return createDatabase();
   }
 
 //CRUD OPERATIONS
