@@ -3,11 +3,11 @@ import 'package:sqflite/sqflite.dart';
 Future<Database> createDatabase() async {
   return await openDatabase(
     'task.db',
-    version: 1,
+    version: 2,
     onCreate: (db, version) {
       db.execute('''
         CREATE TABLE IF NOT EXISTS task (
-        id INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
         date TEXT
         )

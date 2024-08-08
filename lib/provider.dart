@@ -6,14 +6,14 @@ import 'model.dart';
 class DatabaseProvider with ChangeNotifier {
   Database? _database;
 
+  Future<Database> initDatabase() async {
+    return createDatabase();
+  }
+
   Future<Database> getDb() async {
     if (_database != null) return _database!;
     _database = await initDatabase();
     return _database!;
-  }
-
-  Future<Database> initDatabase() async {
-    return createDatabase();
   }
 
 //CRUD OPERATIONS
