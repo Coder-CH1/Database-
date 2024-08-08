@@ -1,3 +1,5 @@
+import 'package:database/model.dart';
+import 'package:database/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,9 +10,10 @@ class CreatePage extends StatefulWidget {
 }
 
 class _CreatePageState extends State<CreatePage> {
+  final DatabaseProvider _dbProvider = DatabaseProvider();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-  final dateFormat = DateFormat('yyyy-MM-dd');
+  final dateFormat = DateFormat('dd MMMM yyyy');
 
   @override
   Widget build(BuildContext context) {
@@ -116,14 +119,19 @@ class _CreatePageState extends State<CreatePage> {
                   fontWeight: FontWeight.normal,
                   color: Colors.white54,
                 )),
-                onPressed: () {
+                onPressed: () async {
+                  final task = Task(
+                      id: 0, 
+                      title: _titleController.text, 
+                      date: dateFormat.parse(_dateController.text),);
                   final date = dateFormat.parse(_dateController.text);
+                  await DatabaseProvider().createTask(task);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => TaskList(
                         title: _titleController.text,
-                        date: date,
+                        date: dateFormat.parse(_dateController.text),
                       ),
                     ),
                   );
@@ -165,13 +173,16 @@ class TaskBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50,
+      width: 100,
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.blue,
         borderRadius: BorderRadius.circular(5),
+        border: Border.all(width: 0.5,)
       ),
       child: Center(
-        child: Text('$title - ${DateFormat('yyyy-MM-dd').format(date)}', style: const TextStyle(
+        child: Text('$title - ${DateFormat('dd MMMM yyyy').format(date)}', style: const TextStyle(
           fontSize: 14,
           color: Colors.white,
         ),
