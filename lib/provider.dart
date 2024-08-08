@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 
 class DatabaseProvider with ChangeNotifier {
-  Database? db;
+
   Future<Database> getDb() async {
-    if (db != null) return db!;
-    db = await initDatabase();
-    return db!;
+    if (_database != null) return _database!;
+    _database = await initDatabase();
+    return _database!;
   }
   Future<Database> initDatabase() async {
   return await openDatabase(
@@ -19,10 +19,11 @@ class DatabaseProvider with ChangeNotifier {
   );
   }
 }
-
+Database? _database;
 //CRUD OPERATIONS
 
 Future<Task> createTask(Task task) async {
+  final db = await _database;
 return task;
 }
 
