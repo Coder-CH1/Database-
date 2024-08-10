@@ -2,6 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
 import 'model.dart';
 
+//Database
 class DatabaseProvider with ChangeNotifier {
   final String _taskName = 'task';
   Future<Database> createDatabase() async {
@@ -39,7 +40,6 @@ class DatabaseProvider with ChangeNotifier {
   }
 
 //CRUD OPERATIONS
-
   Future<Task> createTask(Task task) async {
     final db = await getDb();
     final id = await db.insert(_taskName, task.toJson());
