@@ -5,6 +5,7 @@ import 'model.dart';
 //Database
 class DatabaseProvider with ChangeNotifier {
   final String _taskName = 'task';
+  Database? _database;
   Future<Database> createDatabase() async {
     return await openDatabase(
         '$_taskName.db',
@@ -27,8 +28,6 @@ class DatabaseProvider with ChangeNotifier {
     return await db.query(_taskName);
   }
 
-  Database? _database;
-
   Future<Database> initDatabase() async {
     return createDatabase();
   }
@@ -41,27 +40,43 @@ class DatabaseProvider with ChangeNotifier {
 
 //CRUD OPERATIONS
   Future<Task> createTask(Task task) async {
-    final db = await getDb();
-    final id = await db.insert(_taskName, task.toJson());
-    return Task(id: id, title: task.title, date: task.date);
+    try {
+      final db = await getDb();
+      final id = await db.insert(_taskName, task.toJson());
+      return Task(id: id, title: task.title, date: task.date);
+    } catch (e) {
+      throw Exception('error creating task: $e');
+    }
   }
 
   Future<List<Task>> readData() async {
+    try {
     final db = await getDb();
     final tasks = await db.query(_taskName);
     return tasks.map((task) => Task.fromJson(task)).toList();
+    } catch (e) {
+      throw Exception('error creating task: $e');
+    }
   }
 
   Future<Task> updateData(Task task) async {
+    try {
     final db = await getDb();
   await db.update(_taskName, task.toJson(), where: 'id = ?', whereArgs: [(task.id)]);
     return task;
+    } catch (e) {
+      throw Exception('error creating task: $e');
+    }
   }
 
   Future<bool> deleteData(int id) async {
+    try {
     final db = await getDb();
 final result = await db.delete(_taskName, where: 'id = ?', whereArgs: [id]);
     return result > 0;
+    } catch (e) {
+      throw Exception('error creating task: $e');
+    }
   }
 
 }
