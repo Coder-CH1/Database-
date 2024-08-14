@@ -10,14 +10,15 @@ class DatabaseProvider with ChangeNotifier {
     return await openDatabase(
         '$_taskName.db',
         version: 2,
-        onCreate: (db, version) {
-          db.execute('''
+        onCreate: (db, version) async {
+        await db.execute('''
         CREATE TABLE $_taskName (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         title TEXT NOT NULL,
         date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
       ''');
+        print('Table $_taskName created');
         }
     );
   }

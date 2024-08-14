@@ -120,12 +120,14 @@ class _CreatePageState extends State<CreatePage> {
                   color: Colors.white54,
                 )),
                 onPressed: () async {
+                  try {
                   final task = Task(
-                      id: 0, 
-                      title: _titleController.text, 
-                      date: dateFormat.parse(_dateController.text),);
+                    id: 0,
+                    title: _titleController.text,
+                    date: dateFormat.parse(_dateController.text),);
                   final date = dateFormat.parse(_dateController.text);
-                  await DatabaseProvider().createTask(task);
+                  //final dbProvider = Provider.of<DatabaseProvider>(context, listen: false);
+                  await _dbProvider.createTask(task);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -135,6 +137,10 @@ class _CreatePageState extends State<CreatePage> {
                       ),
                     ),
                   );
+                } catch (e) {
+                  print('error creating task: $e');
+                  }
+
                 },
             ),
           ],
