@@ -9,7 +9,7 @@ class DatabaseProvider with ChangeNotifier {
   Future<Database> createDatabase() async {
     return await openDatabase(
         '$_taskName.db',
-        version: 2,
+        version: 1,
         onCreate: (db, version) async {
         await db.execute('''
         CREATE TABLE $_taskName (

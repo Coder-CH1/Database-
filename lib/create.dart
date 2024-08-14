@@ -127,7 +127,7 @@ class _CreatePageState extends State<CreatePage> {
                     date: dateFormat.parse(_dateController.text),);
                   final date = dateFormat.parse(_dateController.text);
                   //final dbProvider = Provider.of<DatabaseProvider>(context, listen: false);
-                  await _dbProvider.createTask(task);
+                  //await _dbProvider.createTask(task);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
