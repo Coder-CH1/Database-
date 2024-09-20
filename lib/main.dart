@@ -1,6 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:database/create.dart';
-import 'package:database/provider.dart';
+import 'package:database/database.dart';
 import 'package:flutter/material.dart';
 
 void main() {

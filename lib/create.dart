@@ -1,5 +1,4 @@
-import 'package:database/model.dart';
-import 'package:database/provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,7 +9,6 @@ class CreatePage extends StatefulWidget {
 }
 
 class _CreatePageState extends State<CreatePage> {
-  final DatabaseProvider _dbProvider = DatabaseProvider();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final dateFormat = DateFormat('dd MMMM yyyy');
@@ -120,27 +118,6 @@ class _CreatePageState extends State<CreatePage> {
                   color: Colors.white54,
                 )),
                 onPressed: () async {
-                  try {
-                  final task = Task(
-                    id: 0,
-                    title: _titleController.text,
-                    date: dateFormat.parse(_dateController.text),);
-                  final date = dateFormat.parse(_dateController.text);
-                  //final dbProvider = Provider.of<DatabaseProvider>(context, listen: false);
-                  //await _dbProvider.createTask(task);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TaskList(
-                        title: _titleController.text,
-                        date: dateFormat.parse(_dateController.text),
-                      ),
-                    ),
-                  );
-                } catch (e) {
-                  print('error creating task: $e');
-                  }
-
                 },
             ),
           ],
