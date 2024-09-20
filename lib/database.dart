@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/widgets.dart';
@@ -40,22 +42,13 @@ void main() async {
   }
 
   // A method that retrieves all the tasks from the dogs table.
-  Future<List<Tasks>> tasks() async {
+  Future<Tasks> tasks() async {
     // Get a reference to the database.
     final db = await database;
 
     // Query the table for all the tasks.
     final List<Map<String, Object?>> tasksMaps = await db.query('tasks');
-
-    // Convert the list of each task's fields into a list of `Tasks` objects.
-    return [
-      // for (final {
-      // 'id': id as int,
-      // 'title': title as String,
-      // 'date': date as DateTime,
-      // } in tasksMaps)
-      //   Tasks(id: id, title: title, date: date),
-    ];
+    return Tasks(id: 0, title: '', date: DateTime.parse(''));
   }
 
   Future<void> updateTasks(Tasks tasks) async {
