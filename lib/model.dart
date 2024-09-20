@@ -1,25 +1,25 @@
 import 'dart:convert';
 
-class Task {
+class Tasks {
   final int id;
   final String title;
   final DateTime date;
 
-  Task({required this.id, required this.title, required this.date});
+  Tasks({required this.id, required this.title, required this.date});
 
-  factory Task.fromJson(Map<String,dynamic>json) {
-    return Task(
-        id: json['id'],
-        title: json['title'],
-        date: DateTime.parse(json['date']),
-    );
-  }
-  Map<String, dynamic> toJson() {
+  Map<String, Object?> toMap() {
     return {
       'id': id,
-      'title': title,
-      'date': date.toIso8601String(),
+      'name': title,
+      'age': date,
     };
+  }
+
+  // Implement toString to make it easier to see information about
+  // each dog when using the print statement.
+  @override
+  String toString() {
+    return 'Dog{id: $id, name: $title, age: $date}';
   }
 }
 
