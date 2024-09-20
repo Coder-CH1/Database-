@@ -10,7 +10,7 @@ void main() async {
   // Open the database and store the reference.
   final database = openDatabase(
     // Set the path to the database. Note: Using the `join` function from the
-    join(await getDatabasesPath(), 'doggie_database.db'),
+    join(await getDatabasesPath(), ''),
     // When the database is first created, create a table to store dogs.
     onCreate: (db, version) {
       // Run the CREATE TABLE statement on the database.
