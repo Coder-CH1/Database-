@@ -42,14 +42,14 @@ void main() async {
   }
 
   // A method that retrieves all the tasks from the dogs table.
-  Future<Tasks> tasks() async {
-    // Get a reference to the database.
-    final db = await database;
-
-    // Query the table for all the tasks.
-    final List<Map<String, Object?>> tasksMaps = await db.query('tasks');
-    return Tasks(id: 0, title: '', date: DateTime.parse(''));
-  }
+  // Future<Tasks> tasks() async {
+  //   // Get a reference to the database.
+  //   final db = await database;
+  //
+  //   // Query the table for all the tasks.
+  //   final List<Map<String, Object?>> tasksMaps = await db.query('tasks');
+  //   return Tasks(id: 0, title: '', date: DateTime.parse(''));
+  // }
 
   Future<void> updateTasks(Tasks tasks) async {
     // Get a reference to the database.
