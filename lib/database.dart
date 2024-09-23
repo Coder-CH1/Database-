@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -20,8 +19,7 @@ void main() async {
         'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date INTEGER)',
       );
     },
-    // Set the version. This executes the onCreate function and provides a
-    // path to perform database upgrades and downgrades.
+
     version: 1,
   );
 
@@ -30,10 +28,6 @@ void main() async {
     // Get a reference to the database.
     final db = await database;
 
-    // Insert the Tasks into the correct table. You might also specify the
-    // `conflictAlgorithm` to use in case the same tasks is inserted twice.
-    //
-    // In this case, replace any previous data.
     await db.insert(
       'tasks',
       tasks.toMap(),
