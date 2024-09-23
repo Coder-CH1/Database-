@@ -11,8 +11,15 @@ class Tasks {
     return {
       'id': id,
       'name': title,
-      'age': date,
+      'age': date.millisecondsSinceEpoch,
     };
+  }
+
+  static Tasks fromMap(Map<String, dynamic> map) {
+    return Tasks(
+        id: map['id'],
+        title: map['title'],
+        date: DateTime.fromMicrosecondsSinceEpoch(map['date']),);
   }
 
   // Implement toString to make it easier to see information about

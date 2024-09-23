@@ -5,29 +5,31 @@ import 'package:flutter/widgets.dart';
 import 'model.dart';
 import 'dart:async';
 
+class DataBaseManager {
+  static final DataBaseManager instance = DataBaseManager();
+  static Database? _database;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // Open the database and store the reference.
-  final database = openDatabase(
-    // Set the path to the database. Note: Using the `join` function from the
-    join(await getDatabasesPath(), ''),
-    // When the database is first created, create a table to store dogs.
-    onCreate: (db, version) {
-      // Run the CREATE TABLE statement on the database.
-      return db.execute(
-        'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date INTEGER)',
-      );
-    },
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await _initDatabase();
+    return _database!;
+  }
 
-    version: 1,
-  );
+  Future<Database> _initDatabase() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final database = openDatabase(
+      join(await getDatabasesPath(), 'tasks_database.db'),
+      onCreate: (db, version) {
+        return db.execute(
+          'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date INTEGER)',
+        );
+      },
+      version: 1,
+    );
+  }
 
-  // Define a function that inserts tasks into the database
   Future<void> insertTasks(Tasks tasks) async {
-    // Get a reference to the database.
     final db = await database;
-
     await db.insert(
       'tasks',
       tasks.toMap(),
@@ -35,31 +37,29 @@ void main() async {
     );
   }
 
-  Future<void> updateTasks(Tasks tasks) async {
-    // Get a reference to the database.
+  Future<List<Tasks>> _fetchTasks() async {
     final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('tasks');
+    return List.generate(maps.length, (i) {
+      return Tasks.fromMap(maps[i]);
+    });
+  }
 
-    // Update the given Tasks.
+  Future<void> updateTasks(Tasks tasks) async {
+    final db = await database;
     await db.update(
       'tasks',
       tasks.toMap(),
-      // Ensure that the Tasks has a matching id.
       where: 'id = ?',
-      // Pass the Task's id as a whereArg to prevent SQL injection.
       whereArgs: [tasks.id],
     );
   }
 
   Future<void> deleteTasks(int id) async {
-    // Get a reference to the database.
     final db = await database;
-
-    // Remove the Tasks from the database.
     await db.delete(
-      'dogs',
-      // Use a `where` clause to delete a specific tasks.
+      'tasks',
       where: 'id = ?',
-      // Pass the Tasks's id as a whereArg to prevent SQL injection.
       whereArgs: [id],
     );
   }
