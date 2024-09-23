@@ -17,7 +17,7 @@ class DataBaseManager {
 
   Future<Database> _initDatabase() async {
     WidgetsFlutterBinding.ensureInitialized();
-    final database = openDatabase(
+    return await openDatabase(
       join(await getDatabasesPath(), 'tasks_database.db'),
       onCreate: (db, version) {
         return db.execute(
