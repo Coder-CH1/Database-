@@ -1,6 +1,9 @@
 
+import 'package:database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import 'model.dart';
 
 class CreatePage extends StatefulWidget {
   const CreatePage({Key? key}) : super(key: key);
@@ -12,7 +15,19 @@ class _CreatePageState extends State<CreatePage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final dateFormat = DateFormat('dd MMMM yyyy');
+  List<Tasks> taskLists = [];
+  @override
+  void initState() {
+    super.initState();
+   _fetchTasks();
+  }
 
+  Future<void> _fetchTasks() async{
+   taskLists = await DataBaseManager.instance.fetchTasks();
+   setState(() {
+
+   });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

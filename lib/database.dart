@@ -37,7 +37,7 @@ class DataBaseManager {
     );
   }
 
-  Future<List<Tasks>> _fetchTasks() async {
+  Future<List<Tasks>> fetchTasks() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('tasks');
     return List.generate(maps.length, (i) {
