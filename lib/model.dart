@@ -22,8 +22,6 @@ class Tasks {
         date: DateTime.fromMicrosecondsSinceEpoch(map['date']),);
   }
 
-  // Implement toString to make it easier to see information about
-  // each dog when using the print statement.
   @override
   String toString() {
     return 'Dog{id: $id, name: $title, age: $date}';
