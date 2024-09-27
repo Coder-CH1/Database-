@@ -182,7 +182,7 @@ backgroundColor: Colors.black26,
         itemBuilder: (context, index) {
        return TaskBox(
            tasks[index].title,
-            DateTime.fromMicrosecondsSinceEpoch(tasks[index].date as int),
+            tasks[index].date,
        );
         },
       ),
