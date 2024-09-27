@@ -182,9 +182,13 @@ backgroundColor: Colors.black26,
      ),
         itemCount: tasks.length,
         itemBuilder: (context, index) {
-       return TaskBox(
-           tasks[index].title,
-            tasks[index].date,
+       return ListView(
+         children: [
+           TaskBox(
+             tasks[index].title,
+             tasks[index].date,
+           ),
+         ]
        );
         },
       ),
@@ -199,22 +203,13 @@ class TaskBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 100,
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(width: 0.5,)
+    return ListTile(
+      title: Text('$title - ${DateFormat('dd MMMM yyyy').format(date)}', style: const TextStyle(
+        fontSize: 14,
+        color: Colors.white,
       ),
-      child: Center(
-        child: Text('$title - ${DateFormat('dd MMMM yyyy').format(date)}', style: const TextStyle(
-          fontSize: 14,
-          color: Colors.white,
-        ),
-        ),
       ),
+      tileColor: Colors.blueAccent,
     );
   }
 }
