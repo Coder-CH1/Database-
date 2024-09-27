@@ -22,9 +22,7 @@ class _CreatePageState extends State<CreatePage> {
 
   Future<void> _fetchTasks() async{
    taskLists = await DataBaseManager.instance.fetchTasks();
-   setState(() {
-
-   });
+   setState(() {});
   }
   @override
   Widget build(BuildContext context) {
@@ -131,19 +129,30 @@ class _CreatePageState extends State<CreatePage> {
                   color: Colors.white54,
                 )),
                 onPressed: () async {
-                  DateTime selectedDate = DateTime.now();
-                  if(_dateController.text.isNotEmpty) {
-                    selectedDate = dateFormat.parse(_dateController.text);
+
+                  if(_titleController.text.isEmpty || _dateController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please fill all fields')),
+                    );
+                    return;
                   }
+                  DateTime selectedDate = dateFormat.parse(_dateController.text);
                   final newTask = Tasks(id: 0, title: _titleController.text, date: selectedDate);
-                  await DataBaseManager.instance.insertTasks(newTask);
-                 await _fetchTasks();
-                 Navigator.push(
-                     context,
-                     MaterialPageRoute(
+                 try {
+                   await DataBaseManager.instance.insertTasks(newTask);
+                   await _fetchTasks();
+                   Navigator.push(
+                       context,
+                       MaterialPageRoute(
                          builder: (context) => TaskList(tasks: taskLists),
-                     )
-                 );
+                       )
+                   );
+                 } catch (e) {
+                  print('Error inserting task: $e');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error creating tasks')),
+                  );
+                 }
                 },
             ),
           ],

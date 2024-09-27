@@ -10,7 +10,7 @@ class Tasks {
   Map<String, Object?> toMap() {
     return {
       'id': id,
-      'name': title,
+      'title': title,
       'age': date.millisecondsSinceEpoch,
     };
   }
@@ -24,6 +24,6 @@ class Tasks {
 
   @override
   String toString() {
-    return 'Dog{id: $id, name: $title, age: $date}';
+    return 'Dog{id: $id, title: $title, age: $date}';
   }
 }
