@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  //double screenWidth = MediaQuery.of(context).size.width * 1.0;
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
@@ -31,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
                ),
                  onPressed: () {
                    Navigator.of(context).push(
-
                      MaterialPageRoute(builder: (context) => const CreatePage()),
                    );
                  }

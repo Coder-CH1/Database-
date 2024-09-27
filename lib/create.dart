@@ -14,6 +14,7 @@ class _CreatePageState extends State<CreatePage> {
   final TextEditingController _dateController = TextEditingController();
   final dateFormat = DateFormat('dd MMMM yyyy');
   List<Tasks> taskLists = [];
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +25,7 @@ class _CreatePageState extends State<CreatePage> {
    taskLists = await DataBaseManager.instance.fetchTasks();
    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
