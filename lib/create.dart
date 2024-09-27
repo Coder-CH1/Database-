@@ -131,6 +131,19 @@ class _CreatePageState extends State<CreatePage> {
                   color: Colors.white54,
                 )),
                 onPressed: () async {
+                  DateTime selectedDate = DateTime.now();
+                  if(_dateController.text.isNotEmpty) {
+                    selectedDate = dateFormat.parse(_dateController.text);
+                  }
+                  final newTask = Tasks(id: 0, title: _titleController.text, date: selectedDate);
+                  await DataBaseManager.instance.insertTasks(newTask);
+                 await _fetchTasks();
+                 Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                         builder: (context) => TaskList(tasks: taskLists),
+                     )
+                 );
                 },
             ),
           ],
