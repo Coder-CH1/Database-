@@ -67,13 +67,16 @@ class _MyHomePageState extends State<MyHomePage> {
              height: 500,
            ),
            SizedBox(
-             width: 70,
+             width: 80,
              height: 50,
              child: ElevatedButton(
-               child: const Text('Add', style: TextStyle(
+               style: ElevatedButton.styleFrom(
+                 backgroundColor: Colors.white10,
+               ),
+               child: Text('Add', style: TextStyle(
                  fontSize: 12,
                  fontWeight: FontWeight.w500,
-                 color: Colors.white,
+                 color: Colors.white54,
                ),
                ),
                  onPressed: () {

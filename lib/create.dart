@@ -125,7 +125,7 @@ class _CreatePageState extends State<CreatePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white10,
                 ),
-                child: const Text('Create', style: TextStyle(
+                child: Text('Create', style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.normal,
                   color: Colors.white54,
