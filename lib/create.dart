@@ -141,9 +141,8 @@ class _CreatePageState extends State<CreatePage> {
 }
 
 class TaskList extends StatelessWidget {
-  final String title;
-  final DateTime date;
-  const TaskList({Key? key, required this.title, required this.date}) : super(key: key);
+  final List<Tasks> tasks;
+  const TaskList({Key? key, required this.tasks}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -152,10 +151,18 @@ class TaskList extends StatelessWidget {
 backgroundColor: Colors.black26,
   ),
       backgroundColor: Colors.black87,
-      body: GridView.count(crossAxisCount: 2,
-      children: [
-        TaskBox(title, date),
-      ],
+      body: GridView.builder(
+     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+         crossAxisCount: 2,
+       childAspectRatio: 2.5,
+     ),
+        itemCount: tasks.length,
+        itemBuilder: (context, index) {
+       return TaskBox(
+           tasks[index].title,
+            DateTime.fromMicrosecondsSinceEpoch(tasks[index].date as int),
+       );
+        },
       ),
     );
   }

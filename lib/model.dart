@@ -27,4 +27,3 @@ class Tasks {
     return 'Dog{id: $id, name: $title, age: $date}';
   }
 }
-
