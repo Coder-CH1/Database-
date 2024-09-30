@@ -165,15 +165,10 @@ class _CreatePageState extends State<CreatePage> {
 }
 
 //
-class TaskList extends StatefulWidget {
+class TaskList extends StatelessWidget {
   final List<Tasks> tasks;
   const TaskList({Key? key, required this.tasks}) : super(key: key);
 
-  @override
-  State<TaskList> createState() => _TaskListState();
-}
-
-class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,13 +181,13 @@ backgroundColor: Colors.black26,
          crossAxisCount: 2,
        childAspectRatio: 2.5,
      ),
-        itemCount: widget.tasks.length,
+        itemCount: tasks.length,
         itemBuilder: (context, index) {
        return ListView(
          children: [
            TaskBox(
-             widget.tasks[index].title,
-             widget.tasks[index].date,
+             tasks[index].title,
+             tasks[index].date,
            ),
          ]
        );
@@ -203,20 +198,15 @@ backgroundColor: Colors.black26,
 }
 
 //
-class TaskBox extends StatefulWidget {
+class TaskBox extends StatelessWidget {
   final String title;
   final DateTime date;
   const TaskBox(this.title, this.date, {Key? key}) : super(key: key);
 
   @override
-  State<TaskBox> createState() => _TaskBoxState();
-}
-
-class _TaskBoxState extends State<TaskBox> {
-  @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('${widget.title} - ${DateFormat('dd MMMM yyyy').format(widget.date)}', style: const TextStyle(
+      title: Text('$title - ${DateFormat('dd MMMM yyyy').format(date)}', style: const TextStyle(
         fontSize: 14,
         color: Colors.white,
       ),
