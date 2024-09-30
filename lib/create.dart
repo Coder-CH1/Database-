@@ -72,7 +72,6 @@ class _CreatePageState extends State<CreatePage> {
                 ),
               ),
               onChanged: (value) {
-
               },
             ),
             const SizedBox(
@@ -150,7 +149,7 @@ class _CreatePageState extends State<CreatePage> {
                        )
                    );
                  } catch (e) {
-                  print('Error inserting task: $e');
+                  //print('Error inserting task: $e');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Error creating tasks')),
                   );
