@@ -1,5 +1,10 @@
-# Database-
-## Database CRUD operations in Flutter -
+## Database-
 
 
- - This project implements basic CRUD(Create, Read, Update, Delete) operations using SQLite as the Database in a Flutter Application.
+#### Flutter project demonstrating basic CRUD operations using sqlite. 
+
+
+#### Features   -
+ 
+ - Simple UI.
+ - CRUD(create, read, update and delete) in Sqlite database.
