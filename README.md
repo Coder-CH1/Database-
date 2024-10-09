@@ -1,7 +1,7 @@
 # Database -
 
 
-Flutter project demonstrating basic CRUD operations using sqlite. 
+- Flutter project demonstrating basic CRUD operations using sqlite. 
 
 
  Features -
