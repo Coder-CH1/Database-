@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                style: ElevatedButton.styleFrom(
                  backgroundColor: Colors.white10,
                ),
-               child: Text('Add', style: TextStyle(
+               child: const Text('Add', style: TextStyle(
                  fontSize: 12,
                  fontWeight: FontWeight.w500,
                  color: Colors.white54,
