@@ -1,7 +1,6 @@
 import 'package:database/create.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'model.dart';
 
 void main() {
@@ -16,20 +15,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: MyHomePage(tasks: [],),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MyHomePage extends StatelessWidget {
+  final List<Tasks> tasks;
+  const MyHomePage({Key? key, required this.tasks}) : super(key: key);
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  late List<Tasks> tasks = [];
+  //late List<Tasks> tasks = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,32 +58,50 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white54,
            ),
            tasks.isNotEmpty
-            ? TaskList(tasks: tasks)
-            : const Text('Task not available'),
-           SizedBox(
-             width: 80,
-             height: 50,
-             child: ElevatedButton(
-               style: ElevatedButton.styleFrom(
-                 backgroundColor: Colors.white10,
-               ),
-               child: const Text('Add', style: TextStyle(
-                 fontSize: 12,
-                 fontWeight: FontWeight.w500,
-                 color: Colors.white54,
-               ),
-               ),
-                 onPressed: () {
-                   Navigator.of(context).push(
-                     MaterialPageRoute(builder: (context) => const CreatePage()),
-                   );
-                 }
+            ? GridView.builder(
+             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+               crossAxisCount: 2,
+               childAspectRatio: 2.5,
              ),
+             itemCount: tasks.length,
+             itemBuilder: (context, index) {
+               return ListView(
+                   children: [
+                     TaskBox(
+                       tasks[index].title,
+                       tasks[index].date,
+                     ),
+                   ]
+               );
+             },
            )
+            : const Text('Task not available'),
           ],
         ),
       ),
-      //floatingActionButton: ,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 150, left: 150),
+        child: SizedBox(
+          width: 80,
+          height: 50,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white10,
+              ),
+              child: const Text('Add', style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Colors.white54,
+              ),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const CreatePage()),
+                );
+              }
+          ),
+        ),
+      ),
     );
   }
 }

@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 import 'main.dart';
 import 'model.dart';
 
-class CreatePage extends StatefulWidget {
+
+class CreatePage extends StatefulWidget{
   const CreatePage({Key? key}) : super(key: key);
   @override
   State<CreatePage> createState() => _CreatePageState();
@@ -131,7 +132,6 @@ class _CreatePageState extends State<CreatePage> {
                   color: Colors.white54,
                 )),
                 onPressed: () async {
-
                   if(_titleController.text.isEmpty || _dateController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Please fill all fields')),
@@ -146,8 +146,7 @@ class _CreatePageState extends State<CreatePage> {
                    if (context.mounted) {
                      Navigator.push(context,
                          MaterialPageRoute(
-                           builder: (context) => TaskList(tasks: taskLists),
-                         )
+                           builder: (context) => MyHomePage(tasks: taskLists),),
                      );
                    } else{
                      return;
@@ -160,7 +159,7 @@ class _CreatePageState extends State<CreatePage> {
                       } else{
                       return;
                     }
-                 }
+                  }
                 },
               ),
           ],
