@@ -124,7 +124,7 @@ class _CreatePageState extends State<CreatePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white10,
                 ),
-                child: Text('Create', style: TextStyle(
+                child: const Text('Create', style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.normal,
                   color: Colors.white54,
@@ -133,7 +133,7 @@ class _CreatePageState extends State<CreatePage> {
 
                   if(_titleController.text.isEmpty || _dateController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Please fill all fields')),
+                      const SnackBar(content: Text('Please fill all fields')),
                     );
                     return;
                   }
@@ -142,20 +142,26 @@ class _CreatePageState extends State<CreatePage> {
                  try {
                    await DataBaseManager.instance.insertTasks(newTask);
                    await _fetchTasks();
-                   Navigator.push(
-                       context,
-                       MaterialPageRoute(
-                         builder: (context) => TaskList(tasks: taskLists),
-                       )
-                   );
+                   if (context.mounted) {
+                     Navigator.push(context,
+                         MaterialPageRoute(
+                           builder: (context) => TaskList(tasks: taskLists),
+                         )
+                     );
+                   } else{
+                     return;
+                   }
                  } catch (e) {
-                  //print('Error inserting task: $e');
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error creating tasks')),
-                  );
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                     const SnackBar(content: Text('Error creating tasks')),
+                         );
+                      } else{
+                      return;
+                    }
                  }
                 },
-            ),
+              ),
           ],
         ),
       ),
@@ -176,7 +182,7 @@ backgroundColor: Colors.black26,
   ),
       backgroundColor: Colors.black87,
       body: GridView.builder(
-     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
          crossAxisCount: 2,
        childAspectRatio: 2.5,
      ),
