@@ -141,6 +141,7 @@ class _CreatePageState extends State<CreatePage> {
                   }
                   DateTime selectedDate = dateFormat.parse(_dateController.text);
                   final newTask = Tasks(id: 0, title: _titleController.text, date: selectedDate);
+
                  try {
                    await DataBaseManager.instance.insertTasks(newTask);
                    await _fetchTasks();

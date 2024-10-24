@@ -34,15 +34,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    setState(() {
       _fetchTasks();
-    });
   }
 
   Future<void> _fetchTasks() async{
     taskLists = await DataBaseManager.instance.fetchTasks();
+    setState(() {
+    });
   }
-  //late List<Tasks> tasks = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,10 +100,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.white54,
               ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const CreatePage()),
                 );
+                await _fetchTasks();
               }
           ),
         ),
