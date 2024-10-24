@@ -57,24 +57,27 @@ class MyHomePage extends StatelessWidget {
             height: 1,
             color: Colors.white54,
            ),
+           SizedBox(height: 20),
            tasks.isNotEmpty
-            ? GridView.builder(
-             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-               crossAxisCount: 2,
-               childAspectRatio: 2.5,
-             ),
-             itemCount: tasks.length,
-             itemBuilder: (context, index) {
-               return ListView(
-                   children: [
-                     TaskBox(
-                       tasks[index].title,
-                       tasks[index].date,
-                     ),
-                   ]
-               );
-             },
-           )
+            ? Expanded(
+              child: GridView.builder(
+               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                 crossAxisCount: 2,
+                 childAspectRatio: 2.5,
+               ),
+               itemCount: tasks.length,
+               itemBuilder: (context, index) {
+                 return ListView(
+                     children: [
+                       TaskBox(
+                         tasks[index].title,
+                         tasks[index].date,
+                       ),
+                     ]
+                 );
+               },
+                         ),
+            )
             : const Text('Task not available'),
           ],
         ),
