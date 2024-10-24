@@ -1,6 +1,8 @@
 import 'package:database/create.dart';
 import 'package:flutter/material.dart';
 
+import 'model.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -26,6 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late List<Tasks> tasks = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 50, left: 20, bottom: 20),
+              padding: EdgeInsets.only(top: 50, left: 20, bottom: 20, right: 20),
               child: Text('Choose category',
                   style: TextStyle(
                     fontSize: 20,
@@ -58,9 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 1,
             color: Colors.white54,
            ),
-           const SizedBox(
-             height: 500,
-           ),
+           tasks.isNotEmpty
+            ? TaskList(tasks: tasks)
+            : const Text('Task not available'),
            SizedBox(
              width: 80,
              height: 50,
@@ -84,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      //floatingActionButton: ,
     );
   }
 }
