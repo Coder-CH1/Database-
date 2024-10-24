@@ -20,12 +20,13 @@ class _CreatePageState extends State<CreatePage> {
   @override
   void initState() {
     super.initState();
-   _fetchTasks();
+    setState(() {
+      _fetchTasks();
+    });
   }
 
   Future<void> _fetchTasks() async{
    taskLists = await DataBaseManager.instance.fetchTasks();
-   setState(() {});
   }
 
   @override

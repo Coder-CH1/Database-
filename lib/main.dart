@@ -1,6 +1,7 @@
 import 'package:database/create.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'database.dart';
 import 'model.dart';
 
 void main() {
@@ -20,10 +21,27 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   final List<Tasks> tasks;
   const MyHomePage({Key? key, required this.tasks}) : super(key: key);
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  List<Tasks> taskLists = [];
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _fetchTasks();
+    });
+  }
+
+  Future<void> _fetchTasks() async{
+    taskLists = await DataBaseManager.instance.fetchTasks();
+  }
   //late List<Tasks> tasks = [];
   @override
   Widget build(BuildContext context) {
@@ -37,50 +55,35 @@ class MyHomePage extends StatelessWidget {
         ) ),
       ),
       backgroundColor: Colors.black54,
-      body: Container(
-        height: 700,
-        width: 400,
-        color: Colors.black12,
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 50, left: 20, bottom: 20, right: 20),
-              child: Text('Choose category',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  )
-              ),
-            ),
-           const Divider(
-            height: 1,
-            color: Colors.white54,
-           ),
-           SizedBox(height: 20),
-           tasks.isNotEmpty
-            ? Expanded(
-              child: GridView.builder(
-               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                 crossAxisCount: 2,
-                 childAspectRatio: 2.5,
-               ),
-               itemCount: tasks.length,
-               itemBuilder: (context, index) {
-                 return ListView(
-                     children: [
-                       TaskBox(
-                         tasks[index].title,
-                         tasks[index].date,
+      body: Column(
+        children: [
+         const Divider(
+          height: 1,
+          color: Colors.white54,
+         ),
+         const SizedBox(height: 20),
+         widget.tasks.isNotEmpty
+          ? Expanded(
+            child: GridView.builder(
+             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+               crossAxisCount: 2,
+               childAspectRatio: 2.5,
+             ),
+             itemCount: widget.tasks.length,
+             itemBuilder: (context, index) {
+               return ListView(
+                   children: [
+                     TaskBox(
+                       widget.tasks[index].title,
+                       widget.tasks[index].date,
+                     ),
+                   ]
+               );
+             },
                        ),
-                     ]
-                 );
-               },
-                         ),
-            )
-            : const Text('Task not available'),
-          ],
-        ),
+          )
+          : const Text('Task not available'),
+        ],
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 150, left: 150),
