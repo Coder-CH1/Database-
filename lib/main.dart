@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   final List<Tasks> tasks;
-  const MyHomePage({Key? key, required this.tasks}) : super(key: key);
+  const MyHomePage({super.key, required this.tasks});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class TaskList extends StatelessWidget {
   final List<Tasks> tasks;
-  const TaskList({Key? key, required this.tasks}) : super(key: key);
+  const TaskList({super.key, required this.tasks});
 
   @override
   Widget build(BuildContext context) {

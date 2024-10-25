@@ -6,7 +6,7 @@ import 'model.dart';
 
 
 class CreatePage extends StatefulWidget{
-  const CreatePage({Key? key}) : super(key: key);
+  const CreatePage({super.key});
   @override
   State<CreatePage> createState() => _CreatePageState();
 }
