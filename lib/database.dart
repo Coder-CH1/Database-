@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'model.dart';
 import 'dart:async';
 
-//INSTANTIATE THE DATABASE
+/// INSTANTIATE THE DATABASE
 class DataBaseManager {
   static final DataBaseManager instance = DataBaseManager();
   static Database? _database;
@@ -15,7 +15,7 @@ class DataBaseManager {
     return _database!;
   }
 
-  //OPEN THE DATABASE AND CREATE THE TABLE DATA
+  /// OPEN THE DATABASE AND CREATE THE TABLE DATA
   Future<Database> _initDatabase() async {
     WidgetsFlutterBinding.ensureInitialized();
     return await openDatabase(
@@ -29,7 +29,7 @@ class DataBaseManager {
     );
   }
 
-  //INSERT THE DATA
+  /// INSERT THE DATA
   Future<void> insertTasks(Tasks tasks) async {
     final db = await database;
     await db.insert(
@@ -39,7 +39,7 @@ class DataBaseManager {
     );
   }
 
-  //FETCH THE DATA
+  /// FETCH THE DATA
   Future<List<Tasks>> fetchTasks() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('tasks');
@@ -48,7 +48,7 @@ class DataBaseManager {
     });
   }
 
-  //UPDATE THE DATA
+  /// UPDATE THE DATA
   Future<void> updateTasks(Tasks tasks) async {
     final db = await database;
     await db.update(
@@ -59,7 +59,7 @@ class DataBaseManager {
     );
   }
 
-  //DELETE THE DATA
+  /// DELETE THE DATA
   Future<void> deleteTasks(int id) async {
     final db = await database;
     await db.delete(
